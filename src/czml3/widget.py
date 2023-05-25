@@ -80,8 +80,8 @@ class CZMLWidget:
     cesium_version = attr.ib(default="1.88")
     ion_token = attr.ib(default="")
     terrain = attr.ib(default=TERRAIN["Ellipsoid"])
-    imagery = attr.ib(default=IMAGERY["OSM"])
-
+    imagery = attr.ib(default=IMAGERY["Bing_Aerial"])
+    widget_height = attr.ib(default="400px")
     _container_id = attr.ib(factory=uuid4)
 
     def build_script(self):
@@ -94,12 +94,12 @@ class CZMLWidget:
             imagery=self.imagery,
         )
 
-    def to_html(self, widget_height="400px"):
+    def to_html(self):
         return CESIUM_TPL.format(
             cesium_version=self.cesium_version,
             script=self.build_script(),
             container_id=self._container_id,
-            widget_height=widget_height,
+            widget_height=self.widget_height,
         )
 
     def _repr_html_(self):
