@@ -12,6 +12,7 @@ TERRAIN = {
 IMAGERY = {
     "Bing_Aerial": "Cesium.createWorldImagery()",
     "OSM": "new Cesium.OpenStreetMapImageryProvider()",
+    "NaturalEarthII": "new Cesium.TileMapServiceImageryProvider({url : Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')})",
 }
 
 CESIUM_TPL = """
@@ -47,7 +48,7 @@ require(['cesium'], function (Cesium) {{
     var viewer = new Cesium.Viewer('cesiumContainer-{container_id}', {{
         terrainProvider: {terrain},
         imageryProvider: {imagery},
-        shouldAnimate : true
+        shouldAnimate : false
     }});
 
     // To have an inertial (ICRF) view
@@ -80,7 +81,7 @@ class CZMLWidget:
     cesium_version = attr.ib(default="1.88")
     ion_token = attr.ib(default="")
     terrain = attr.ib(default=TERRAIN["Ellipsoid"])
-    imagery = attr.ib(default=IMAGERY["Bing_Aerial"])
+    imagery = attr.ib(default=IMAGERY["NaturalEarthII"])
     widget_height = attr.ib(default="400px")
     _container_id = attr.ib(factory=uuid4)
 
